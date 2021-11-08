@@ -47,7 +47,7 @@ class DB{
         return $this;
     } // end of function query
 
-    private function action($action, $table, $where = array()){
+    public function action($action, $table, $where = array()){
         if(count($where) === 3){
             $operators = array('=','>','<','>=','<=');
             $field = $where[0];
@@ -56,7 +56,7 @@ class DB{
 
             if(in_array($operator, $operators)){
                 $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
-                if(!$this->query($sql,array($value))->errur()){
+                if(!$this->query($sql,array($value))->error()){
                     return $this;
                 }
             }
@@ -65,11 +65,11 @@ class DB{
     }// end of function action query
 
     public function get($table, $where){
-        
+        return $this->action('SELECT *',$table, $where);
     }// end of function get query
 
     public function delete($table, $where){
-
+        return $this->action('DELETE ',$table, $where);
     }// end of function delete query
 
 
@@ -77,6 +77,9 @@ class DB{
         return $this->_error;
     }// end of function error
 
+    public function count(){
+        return $this->_count;
+    }
 
 
 } // end of class DB

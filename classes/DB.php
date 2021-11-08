@@ -70,8 +70,35 @@ class DB{
 
     public function delete($table, $where){
         return $this->action('DELETE ',$table, $where);
-    }// end of function delete query
+    }// end of function delete
 
+    public function insert($table, $fields = array()){
+        if(count($fields)){
+            $keys = array_keys($fields);
+            $values = '';
+            $x = 1;
+            foreach($fields as $field){
+                $values .= '?';
+                if($x < count($fields)){
+                    $values .=', ';
+                }
+                $x++;
+            }
+            $sql = "INSERT INTO {$table} (`" . implode('`, `',$keys) . "`) VALUES ({$values})";
+            if($this->query($sql, $fields)->error()){
+                return true;
+            }
+        }
+        return false;
+    } //end of function insert
+
+    public function results(){
+        return $this->_results;
+    } // end of function results
+
+    public function first(){
+        return $this->results()[0];
+    } // end of function first
 
     public function error(){
         return $this->_error;

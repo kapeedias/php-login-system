@@ -69,11 +69,11 @@ class DB{
     }// end of function get query
 
     public function delete($table, $where){
-        return $this->action('DELETE ',$table, $where);
+        return $this->action('DELETE FROM',$table, $where);
     }// end of function delete
 
     public function insert($table, $fields = array()){
-        if(count($fields)){
+  
             $keys = array_keys($fields);
             $values = '';
             $x = 1;
@@ -88,9 +88,21 @@ class DB{
             if($this->query($sql, $fields)->error()){
                 return true;
             }
-        }
+        
         return false;
     } //end of function insert
+
+    public function update($table, $id, $fields){
+        $set = '';
+        $x = 1;
+        foreach($fields as $name => $value){
+            $set .= "{$name} = ?";
+        }
+
+        $sql = "UPDATE {$table} SET {$set} WHERE id = {$id}";
+
+
+    } //end of function update
 
     public function results(){
         return $this->_results;

@@ -25,10 +25,10 @@ if(!$user->count()){
 
 /* INSERT QUERY */
 
-$user = DB::getInstance()->insert('users',array(
+$user = DB::getInstance()->update('users',array(
     'username'=>'admin',
     'password'=>'billu',
-    'salt'=>'salt',
-    'joined' => date('Y-m-d H:i:s')
+    'salt'=>'salt'
+    
 ));
 

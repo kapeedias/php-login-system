@@ -23,12 +23,13 @@ if(!$user->count()){
 
 */
 
-/* INSERT QUERY */
+/* UPDATE QUERY */
 
-$user = DB::getInstance()->update('users',array(
+$user = DB::getInstance()->update('users',1,array(
     'username'=>'admin',
-    'password'=>'billu',
-    'salt'=>'salt'
+    'password'=>'6047912932',
+    'salt'=>'saltupdate',
+    'name' => 'Sai Deepak Chandrasekhar'
     
 ));
 

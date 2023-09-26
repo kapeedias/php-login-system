@@ -8,7 +8,7 @@ class User{
     }
 
     public function create($fields = array()){
-        if($this->$_db->insert('users','$fields')){
+        if($this->$_db->insert('crm_users','$fields')){
             throw new Exception('There was a problem creating your account');
         }
     }

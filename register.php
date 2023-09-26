@@ -45,19 +45,20 @@ if(Input::exists()){
         if($validation->passed()){
 
                 $user = new User();
+                $salt = Hash::salt(32);
+
                 try{
 
                     $user->create(array(
-                        'username' => '',
-                        'password' => '',
-                        'salt' => '',
-                        'firstname' => '',
-                        'lastname' => '',
-                        'joined' => '',
-                        'group' => '',
-                        'email' => '',
-                        'tel' => '',
-                        'accesslevel' => ''
+                        'username' => Input::get('username'),
+                        'password_hash' => Hash::make(Input::get('password'),$salt),
+                        'salt' => $salt,
+                        'first_name' => Input::get('firstname'),
+                        'last_name' => Input::get('lastname'),
+                        'joined' => date('Y-m-d H:i:s'),
+                        'group' => '1',
+                        'email' => Input::get('email'),
+                        'tel' => Input::get('tel')
                     ));
 
                 } catch(Exception $e){

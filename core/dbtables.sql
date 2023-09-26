@@ -42,6 +42,12 @@ CREATE TABLE crm_users (
     additional_notes TEXT
 );
 
+-- Set English as default language
+ALTER TABLE `crm_users` CHANGE `preferred_language` `preferred_language` VARCHAR(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT 'EN';
+
+-- Set default timezone as 'America/Vancouver'
+ALTER TABLE `crm_users` CHANGE `timezone` `timezone` VARCHAR(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT 'America/Vancouver';
+
 -- Drop the Timezones table if it exists
 DROP TABLE IF EXISTS timezones;
 

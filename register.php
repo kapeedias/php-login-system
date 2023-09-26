@@ -27,15 +27,43 @@ if(Input::exists()){
                     'required' => true,
                     'matches'  => 'password'
             ),
-            'fullname' => array(
-                    'name'     => 'Full Name',
+            'fistname' => array(
+                'name'     => 'First Name',
+                'required' => true,
+                'min'      => 2,
+                'max'      => 50
+             )
+            'lastname' => array(
+                    'name'     => 'Last Name',
                     'required' => true,
-                    'min'      => 2    
+                    'min'      => 2,
+                    'max'      => 50
             )
         ));
 
 
         if($validation->passed()){
+
+                $user = new User();
+                try{
+
+                    $user->create(array(
+                        'username' => '',
+                        'password' => '',
+                        'salt' => '',
+                        'firstname' => '',
+                        'lastname' => '',
+                        'joined' => '',
+                        'group' => '',
+                        'email' => '',
+                        'tel' => '',
+                        'accesslevel' => ''
+                    ));
+
+                } catch(Exception $e){
+                    die($e->getMessage());
+                }
+
                 Session::flash('success','You registered successfully');
                 header('Location: index.php');
         }else{

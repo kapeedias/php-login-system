@@ -1,7 +1,7 @@
 <?php
 require_once 'core/init.php';
 
-if(Session::has('success')){
+if(Session::exists('success')){
     echo Session::flash('success');
 }
 /* SELECT QUERY 
@@ -26,7 +26,7 @@ if(!$user->count()){
 */
 
 /* UPDATE QUERY */
-
+/*
 $user = DB::getInstance()->update('users',1,array(
     'username'=>'admin',
     'password'=>'6047912932',
@@ -34,4 +34,4 @@ $user = DB::getInstance()->update('users',1,array(
     'name' => 'Sai Deepak Chandrasekhar'
     
 ));
-
+*/

@@ -28,13 +28,13 @@ if(Input::exists()){
                     'matches'  => 'password'
             ),
             'fist_name' => array(
-                'name'     => 'First Name',
+                'first_name'     => 'First Name',
                 'required' => true,
                 'min'      => 2,
                 'max'      => 50
-             )
+            ),
             'last_name' => array(
-                    'name'     => 'Last Name',
+                    'last_name'     => 'Last Name',
                     'required' => true,
                     'min'      => 2,
                     'max'      => 50

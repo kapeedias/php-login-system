@@ -1,7 +1,9 @@
 <?php
 require_once 'core/init.php';
 
-
+if(Session::has('success')){
+    echo Session::flash('success');
+}
 /* SELECT QUERY 
 
 $user = DB::getInstance()->get('users', array('username' ,'=', 'sai'));

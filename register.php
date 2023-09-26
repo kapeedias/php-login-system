@@ -1,42 +1,51 @@
 <?php 
-
 require_once 'core/init.php';
+
+
 if(Input::exists()){
-   //echo Input::get('username');
-   $validate = new Validate();
-   $validation = $validate->check($_POST, array(
-     'username' =>  array(
-            'name'     => 'Username',
-            'required' => true,
-            'min'      => 2,
-            'max'      => 20,
-            'unique'   => 'users'
-    ),
-     'password' => array(
-            'name'     => 'Password',
-            'required' => true,
-            'min'      => 8
-    ),
-     'passwordagain' => array(
-            'name'     => 'Re-Enter Password',
-            'required' => true,
-            'matches'  => 'password'
-     ),
-     'fullname' => array(
-            'name'     => 'Full Name',
-            'required' => true,
-            'min'      => 2    
-     )
-   ));
+
+    //CSRF Protection
+    if(Token::check(Input::get('token'))){
+
+         //echo Input::get('username');
+        $validate = new Validate();
+        $validation = $validate->check($_POST, array(
+            'username' =>  array(
+                    'name'     => 'Username',
+                    'required' => true,
+                    'min'      => 2,
+                    'max'      => 20,
+                    'unique'   => 'users'
+            ),
+            'password' => array(
+                    'name'     => 'Password',
+                    'required' => true,
+                    'min'      => 8
+            ),
+            'passwordagain' => array(
+                    'name'     => 'Re-Enter Password',
+                    'required' => true,
+                    'matches'  => 'password'
+            ),
+            'fullname' => array(
+                    'name'     => 'Full Name',
+                    'required' => true,
+                    'min'      => 2    
+            )
+        ));
 
 
-   if($validation->passed()){
-        echo "passed";
-   }else{
-        print_r($validation->errors());
-   }
+        if($validation->passed()){
+                Session::flash('success','You registered successfully');
+                header('Location: index.php');
+        }else{
+                foreach($validation->errors() as $error){
+                    echo $error, '<br>';
 
+                }
+        }
 
+    }
 }
 ?>
 
@@ -72,6 +81,7 @@ if(Input::exists()){
             <input type="text" name="fullname" id="fullname" value="<?php echo Input::get('fullname'); ?>" class="form-control" autocomplete="off"/>
         </div>
         <div class="form-group mt-2">
+            <input type="hidden" name="token" value="<?php echo Token::generate();?>" />
             <input type="submit" name="doRegister" id="doRegister" value="Register" class="btn btn-success"/>
         </div>
 

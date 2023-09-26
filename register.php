@@ -17,7 +17,7 @@ if(Input::exists()){
                     'max'      => 20,
                     'unique'   => 'users'
             ),
-            'password' => array(
+            'password_hash' => array(
                     'name'     => 'Password',
                     'required' => true,
                     'min'      => 8
@@ -49,24 +49,27 @@ if(Input::exists()){
 
                 try{
 
-                    $user->create(array(
+                    $user->create([
                         'username' => Input::get('username'),
-                        'password_hash' => Hash::make(Input::get('password'),$salt),
+                        'password_hash' => Hash::make(Input::get('password_hash'),$salt),
                         'salt' => $salt,
-                        'first_name' => Input::get('firstname'),
-                        'last_name' => Input::get('lastname'),
+                        'first_name' => Input::get('first_name'),
+                        'last_name' => Input::get('last_name'),
                         'joined' => date('Y-m-d H:i:s'),
                         'group' => '1',
                         'email' => Input::get('email'),
                         'tel' => Input::get('tel')
-                    ));
+                    ]);
+                    
+                    Session::flash('success','You are registered successfully!');
+                    Redirect::to('index.php');
 
                 } catch(Exception $e){
                     die($e->getMessage());
                 }
 
-                Session::flash('success','You registered successfully');
-                header('Location: index.php');
+               
+               
         }else{
                 foreach($validation->errors() as $error){
                     echo $error, '<br>';

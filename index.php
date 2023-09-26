@@ -2,12 +2,15 @@
 require_once 'core/init.php';
 
 if(Session::exists('success')){
-    echo Session::flash('success');
+    echo '<p>'.Session::flash('success').'</p>';
 }
+
+
+
+
+
 /* SELECT QUERY 
-
 $user = DB::getInstance()->get('users', array('username' ,'=', 'sai'));
-
 if(!$user->count()){
     echo "No User";
 }else{
@@ -22,11 +25,9 @@ if(!$user->count()){
         echo $user->username, '<br />';        
     }
 }
-
 */
 
-/* UPDATE QUERY */
-/*
+/* UPDATE QUERY 
 $user = DB::getInstance()->update('users',1,array(
     'username'=>'admin',
     'password'=>'6047912932',

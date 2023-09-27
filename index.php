@@ -6,7 +6,15 @@ if(Session::exists('success')){
 }
 
 
+$user = new User();
+if($user->isLoggedIn()){
+?>
+    <p>Hello <?php echo escape($user->data()->username); ?> </p>
+<?php 
 
+} else {
+    echo "You need to login or register";
+}
 
 
 /* SELECT QUERY 
